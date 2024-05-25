@@ -2,6 +2,9 @@ name: PS4 Linux Payload
 
 on: [ push, pull_request ]
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -9,9 +12,11 @@ jobs:
     - uses: actions/checkout@main
       with:
         submodules: recursive
-    - name: make
+    - name: make linux
       working-directory: linux
       run: make
-    - name: make
+    - name: make linux-pro
       working-directory: linux-pro
       run: make
+    - name: zip
+      run: zip ps4linux.zip ./*/*.bin
